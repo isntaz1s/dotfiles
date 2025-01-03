@@ -5,9 +5,9 @@ require "nvchad.options"
 local opt = vim.opt -- Shortcut for vim options
 
 -- Indentation
-opt.tabstop = 4        -- Number of spaces per tab
-opt.shiftwidth = 4     -- Number of spaces for indentation
-opt.softtabstop = 4    -- Number of spaces for Tab key
+opt.tabstop = 2        -- Number of spaces per tab
+opt.shiftwidth = 2     -- Number of spaces for indentation
+opt.softtabstop = 2    -- Number of spaces for Tab key
 opt.expandtab = true   -- Convert tabs to spaces
 opt.smartindent = true -- Enable smart indentation
 

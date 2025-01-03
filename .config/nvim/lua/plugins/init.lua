@@ -1,53 +1,106 @@
 return {
-    {
-        "stevearc/conform.nvim", -- auto formatter
-        event = 'BufWritePre',
-        opts = require "configs.conform",
-    },
+  {
+    "neovim/nvim-lspconfig",
+    config = function()
+      require "configs.lspconfig"
+    end,
+  },
 
-    {
-        "williamboman/mason.nvim", -- mason for lsp servers
-        opts = {
-            ensure_installed = {
-                "clangd",
-                "gopls",
-                "typescript-language-server",
-                "html-lsp",
-                "css-lsp",
-                "prettierd",
-                "clang-format",
-            }
-        }
-    },
+  {
+    "williamboman/mason.nvim",
+    opts = {
+      ensure_installed = {
+        "typescript-language-server",
+        "gopls",
+        "pyright",
+        "clangd",
+        "clang-format",
+        "prettierd",
+        "json-lsp",
+        "html-lsp",
+        "css-lsp",
+      }
+    }
+  },
 
-    {
-        "neovim/nvim-lspconfig", -- lspconfig for setup servers
-        config = function()
-            require "configs.lspconfig"
-        end,
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    ft = {
+      "javascript",
+      "typescript",
+      "go",
+      "python",
+      "c",
+      "cpp"
     },
+    opts = function ()
+      return require "configs.null-ls"
+    end,
+  },
 
-    {
-        "nvim-treesitter/nvim-treesitter", -- treesitter for better snippets
-        opts = {
-            ensure_installed = {
-                "vim", "lua", "vimdoc",
-                "html", "css", "javascript",
-                "typescript", "go", "toml", "c", "cpp"
-            },
-        },
+  {
+    "nvim-treesitter/nvim-treesitter",
+      opts = {
+        ensure_installed = {
+          "vim",
+          "lua",
+          "vimdoc",
+          "c",
+          "cpp",
+          "html",
+          "css",
+          "typescript",
+          "javascript",
+          "tsx",
+          "go",
+          "python"
+      },
     },
+  },
 
-    {
-        "jose-elias-alvarez/null-ls.nvim", -- null_ls for better formatter
-        event = "VeryLazy",
-        opts = function()
-            return require "configs.null-ls"
-        end
-    },
+  {
+    "windwp/nvim-ts-autotag",
+    config = function()
+      require "configs.autotag"
+    end,
+  },
 
-    {
-        "nvim-telescope/telescope-fzf-native.nvim", -- telescope for better file searching
-        run = "make",
-    },
+  {
+    "shellRaining/hlchunk.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      require "configs.chunk"
+    end,
+  },
+
+  {
+    "rachartier/tiny-inline-diagnostic.nvim",
+    event = "VeryLazy", -- Or `LspAttach`
+    priority = 1000, -- needs to be loaded in first
+    config = function()
+        require "configs.diagnostic"
+     end,
+  },
+
+  {
+    "nvimdev/dashboard-nvim",
+    event = "VimEnter",
+    config = function()
+      require "configs.dashboard"
+    end,
+    dependencies = { {'nvim-tree/nvim-web-devicons'}}
+  },
+
+  {
+    "karb94/neoscroll.nvim",
+    event = "VeryLazy",
+    config = function ()
+      require "configs.neoscroll"
+    end,
+  },
+
+  {
+    "wakatime/vim-wakatime",
+    lazy = false
+  }
 }
